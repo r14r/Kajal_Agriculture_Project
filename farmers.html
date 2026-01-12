@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farmers Directory - Agriculture Project</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/farmers.css">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-logo">
+                <i class="fas fa-leaf"></i>
+                <span data-en="Agriculture" data-mr="कृषि">Agriculture</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" data-en="Home" data-mr="मुख्यपृष्ठ">Home</a></li>
+                <li><a href="farmers.html" class="active" data-en="Farmers" data-mr="शेतकरी">Farmers</a></li>
+                <li><a href="contact.html" data-en="Contact" data-mr="संपर्क">Contact</a></li>
+            </ul>
+            <div class="nav-right">
+                <button class="language-toggle" id="langToggle" title="Switch Language">
+                    <span id="langText">मराठी</span>
+                </button>
+                <button class="hamburger" id="hamburger">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" data-en="Home" data-mr="मुख्यपृष्ठ">Home</a>
+        <a href="farmers.html" data-en="Farmers" data-mr="शेतकरी">Farmers</a>
+        <a href="contact.html" data-en="Contact" data-mr="संपर्क">Contact</a>
+    </div>
+
+    <!-- Page Header -->
+    <section class="farmers-header">
+        <div class="header-content">
+            <h1 data-en="Farmers Directory" data-mr="शेतकरी निर्देशिका">Farmers Directory</h1>
+            <p data-en="Connect with local farmers and view their profiles" data-mr="स्थानिक शेतकऱ्यांशी जुळा व त्यांची प्रोफाइल पहा">
+                Connect with local farmers and view their profiles
+            </p>
+        </div>
+    </section>
+
+    <!-- Filters & Search -->
+    <section class="farmers-section">
+        <div class="farmers-container">
+            <div class="search-bar">
+                <input 
+                    type="text" 
+                    id="searchInput" 
+                    placeholder="Search farmers by name or region..." 
+                    data-en-placeholder="Search farmers by name or region..." 
+                    data-mr-placeholder="नाव किंवा क्षेत्राने शेतकऱ्यांचा शोध घ्या..."
+                />
+                <button class="search-btn" id="searchBtn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="loading-state">
+                <div class="spinner"></div>
+                <p data-en="Loading farmers..." data-mr="शेतकरी लोड होत आहे...">Loading farmers...</p>
+            </div>
+
+            <!-- Error State -->
+            <div id="errorState" class="error-state" style="display: none;">
+                <i class="fas fa-exclamation-circle"></i>
+                <p id="errorMessage"></p>
+                <button class="retry-btn" onclick="loadFarmers()">
+                    <i class="fas fa-redo"></i>
+                    <span data-en="Retry" data-mr="पुन्हा प्रयत्न करा">Retry</span>
+                </button>
+            </div>
+
+            <!-- Empty State -->
+            <div id="emptyState" class="empty-state" style="display: none;">
+                <i class="fas fa-users"></i>
+                <p data-en="No farmers found" data-mr="कोणीही शेतकरी आढळले नाहीत">No farmers found</p>
+            </div>
+
+            <!-- Farmers Grid -->
+            <div class="farmers-grid" id="farmersGrid">
+                <!-- Cards will be inserted here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats-section">
+        <div class="stats-container">
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-users"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalFarmers">0</h3>
+                    <p data-en="Total Farmers" data-mr="एकूण शेतकरी">Total Farmers</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalRegions">0</h3>
+                    <p data-en="Regions" data-mr="क्षेत्रे">Regions</p>
+                </div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-icon">
+                    <i class="fas fa-phone"></i>
+                </div>
+                <div class="stat-info">
+                    <h3 id="totalContacts">0</h3>
+                    <p data-en="With Contact Info" data-mr="संपर्क माहितीसह">With Contact Info</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <p data-en="© 2026 Agriculture Project. All rights reserved." data-mr="© 2026 कृषि प्रकल्प. सर्व हक्क राखीव आहेत.">
+                © 2026 Agriculture Project. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        // Farmers page standalone script - no dependencies on script.js
+        let allFarmers = [];
+        const apiUrl = 'http://localhost:5000/api/farmers';
+
+        // Load farmers on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFarmers();
+            setupMobileNavigation();
+        });
+
+        async function loadFarmers() {
+            const loadingState = document.getElementById('loadingState');
+            const errorState = document.getElementById('errorState');
+            const emptyState = document.getElementById('emptyState');
+            const farmersGrid = document.getElementById('farmersGrid');
+
+            loadingState.style.display = 'flex';
+            errorState.style.display = 'none';
+            emptyState.style.display = 'none';
+            farmersGrid.innerHTML = '';
+
+            try {
+                const response = await fetch(apiUrl);
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const farmers = await response.json();
+                allFarmers = Array.isArray(farmers) ? farmers : [];
+
+                if (allFarmers.length === 0) {
+                    loadingState.style.display = 'none';
+                    emptyState.style.display = 'flex';
+                    updateStats([]);
+                    return;
+                }
+
+                displayFarmers(allFarmers);
+                updateStats(allFarmers);
+                loadingState.style.display = 'none';
+            } catch (error) {
+                console.error('Error loading farmers:', error);
+                loadingState.style.display = 'none';
+                errorState.style.display = 'flex';
+                document.getElementById('errorMessage').textContent = error.message;
+            }
+        }
+
+        function displayFarmers(farmers) {
+            const farmersGrid = document.getElementById('farmersGrid');
+            farmersGrid.innerHTML = '';
+
+            if (farmers.length === 0) {
+                document.getElementById('emptyState').style.display = 'flex';
+                return;
+            }
+
+            document.getElementById('emptyState').style.display = 'none';
+
+            farmers.forEach(farmer => {
+                const card = createFarmerCard(farmer);
+                farmersGrid.appendChild(card);
+            });
+        }
+
+        function createFarmerCard(farmer) {
+            const card = document.createElement('div');
+            card.className = 'farmer-card';
+            card.innerHTML = `
+                <div class="card-header">
+                    <div class="farmer-avatar">
+                        <i class="fas fa-user-circle"></i>
+                    </div>
+                    <div class="farmer-badge">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>${escapeHtml(farmer.name)}</h3>
+                    ${farmer.region ? `
+                        <div class="farmer-detail">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${escapeHtml(farmer.region)}</span>
+                        </div>
+                    ` : ''}
+                    ${farmer.phone ? `
+                        <div class="farmer-detail">
+                            <i class="fas fa-phone"></i>
+                            <span>${escapeHtml(farmer.phone)}</span>
+                        </div>
+                    ` : ''}
+                </div>
+                <div class="card-footer">
+                    <a href="tel:${farmer.phone}" class="btn-call" ${!farmer.phone ? 'disabled' : ''}>
+                        <i class="fas fa-phone"></i>
+                        <span>Call</span>
+                    </a>
+                    <a href="https://wa.me/${farmer.phone}" class="btn-whatsapp" ${!farmer.phone ? 'disabled' : ''}>
+                        <i class="fab fa-whatsapp"></i>
+                        <span>WhatsApp</span>
+                    </a>
+                </div>
+            `;
+            return card;
+        }
+
+        function updateStats(farmers) {
+            document.getElementById('totalFarmers').textContent = farmers.length;
+
+            // Count unique regions
+            const regions = new Set(farmers
+                .map(f => f.region)
+                .filter(r => r && r.trim() !== '')
+            );
+            document.getElementById('totalRegions').textContent = regions.size;
+
+            // Count farmers with contact info
+            const withContact = farmers.filter(f => f.phone).length;
+            document.getElementById('totalContacts').textContent = withContact;
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('keyup', (e) => {
+            const query = e.target.value.toLowerCase();
+            const filtered = allFarmers.filter(farmer =>
+                farmer.name.toLowerCase().includes(query) ||
+                (farmer.region && farmer.region.toLowerCase().includes(query)) ||
+                (farmer.phone && farmer.phone.includes(query))
+            );
+            displayFarmers(filtered);
+        });
+
+        document.getElementById('searchBtn').addEventListener('click', () => {
+            const input = document.getElementById('searchInput');
+            input.focus();
+        });
+
+        // Utility function to escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+
+        // Setup mobile navigation (from script.js)
+        function setupMobileNavigation() {
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            const mobileLinks = document.querySelectorAll('.mobile-menu a');
+
+            if (hamburger) {
+                hamburger.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('active');
+                    hamburger.classList.toggle('active');
+                });
+
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    });
+                });
+            }
+
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!e.target.closest('.navbar') && mobileMenu) {
+                    mobileMenu.classList.remove('active');
+                    if (hamburger) hamburger.classList.remove('active');
+                }
+            });
+
+            // Language toggle
+            const langToggle = document.getElementById('langToggle');
+            if (langToggle) {
+                langToggle.addEventListener('click', toggleLanguage);
+            }
+        }
+
+        // Language toggle functionality
+        function toggleLanguage() {
+            const currentLang = localStorage.getItem('lang') || 'en';
+            const newLang = currentLang === 'en' ? 'mr' : 'en';
+            localStorage.setItem('lang', newLang);
+            applyLanguage(newLang);
+        }
+
+        function applyLanguage(lang) {
+            document.querySelectorAll('[data-en]').forEach(element => {
+                if (element.textContent) {
+                    element.textContent = element.getAttribute(`data-${lang}`) || element.getAttribute('data-en');
+                }
+            });
+
+            document.querySelectorAll('[data-en-placeholder]').forEach(element => {
+                element.placeholder = element.getAttribute(`data-${lang}-placeholder`) || element.getAttribute('data-en-placeholder');
+            });
+
+            const langText = document.getElementById('langText');
+            if (langText) {
+                langText.textContent = lang === 'en' ? 'मराठी' : 'English';
+            }
+        }
+
+        // Initialize language on load
+        window.addEventListener('load', () => {
+            const savedLang = localStorage.getItem('lang') || 'en';
+            applyLanguage(savedLang);
+        });
+    </script>
+</body>
+</html>
