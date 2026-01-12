@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Farmers Directory - Agriculture Project</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/farmers.css">
+
+    <link rel="stylesheet" href="lib/css/styles.css">
+    <link rel="stylesheet" href="lib/css/farmers.css">
 </head>
+
 <body>
-    <!-- Navigation Bar -->
+    <!-- Navigation Bar 
     <nav class="navbar">
         <div class="navbar-container">
             <div class="navbar-logo">
@@ -33,19 +36,55 @@
             </div>
         </div>
     </nav>
+    -->
 
-    <!-- Mobile Menu -->
-    <div class="mobile-menu" id="mobileMenu">
-        <a href="index.html" data-en="Home" data-mr="मुख्यपृष्ठ">Home</a>
-        <a href="farmers.html" data-en="Farmers" data-mr="शेतकरी">Farmers</a>
-        <a href="contact.html" data-en="Contact" data-mr="संपर्क">Contact</a>
-    </div>
+    <!-- Navigation Bar -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo-section">
+                <div class="nav-logo">
+                    <div class="logo-icon">
+                        <i class="fas fa-leaf"></i>
+                    </div>
+                    <div class="logo-text">
+                        <span id="logo-text" class="logo-main" data-en="Green Farming" data-mr="हरित शेती">Green
+                            Farming</span>
+                        <span class="logo-sub" data-en="Organic Agriculture" data-mr="जैव कृषि">Organic
+                            Agriculture</span>
+                    </div>
+                </div>
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="index.html" class="nav-link" data-en="Home" data-mr="होम">Home</a></li>
+                <li class="nav-item"><a href="farmers.html" class="nav-link selected" data-en="Farmers"
+                        data-mr="शेतकरी">Farmers</a></li>
+                <li class="nav-item"><a href="contact.html" class="nav-link nav-contact" data-en="Contact"
+                        data-mr="संपर्क">Contact</a></li>
+            </ul>
+
+            <div class="nav-right">
+                <button id="lang-toggle" class="lang-toggle-btn" type="button" title="Switch Language"
+                    aria-label="Switch Language">
+                    <i class="fas fa-globe"></i>
+                    <span class="lang-text" data-en="English" data-mr="मराठी">English</span>
+                </button>
+            </div>
+
+            <div class="hamburger" aria-label="Toggle Navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
 
     <!-- Page Header -->
     <section class="farmers-header">
         <div class="header-content">
             <h1 data-en="Farmers Directory" data-mr="शेतकरी निर्देशिका">Farmers Directory</h1>
-            <p data-en="Connect with local farmers and view their profiles" data-mr="स्थानिक शेतकऱ्यांशी जुळा व त्यांची प्रोफाइल पहा">
+            <p data-en="Connect with local farmers and view their profiles"
+                data-mr="स्थानिक शेतकऱ्यांशी जुळा व त्यांची प्रोफाइल पहा">
                 Connect with local farmers and view their profiles
             </p>
         </div>
@@ -55,13 +94,9 @@
     <section class="farmers-section">
         <div class="farmers-container">
             <div class="search-bar">
-                <input 
-                    type="text" 
-                    id="searchInput" 
-                    placeholder="Search farmers by name or region..." 
-                    data-en-placeholder="Search farmers by name or region..." 
-                    data-mr-placeholder="नाव किंवा क्षेत्राने शेतकऱ्यांचा शोध घ्या..."
-                />
+                <input type="text" id="searchInput" placeholder="Search farmers by name or region..."
+                    data-en-placeholder="Search farmers by name or region..."
+                    data-mr-placeholder="नाव किंवा क्षेत्राने शेतकऱ्यांचा शोध घ्या..." />
                 <button class="search-btn" id="searchBtn">
                     <i class="fas fa-search"></i>
                 </button>
@@ -132,7 +167,8 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="footer-content">
-            <p data-en="© 2026 Agriculture Project. All rights reserved." data-mr="© 2026 कृषि प्रकल्प. सर्व हक्क राखीव आहेत.">
+            <p data-en="© 2026 Agriculture Project. All rights reserved."
+                data-mr="© 2026 कृषि प्रकल्प. सर्व हक्क राखीव आहेत.">
                 © 2026 Agriculture Project. All rights reserved.
             </p>
         </div>
@@ -355,4 +391,5 @@
         });
     </script>
 </body>
+
 </html>

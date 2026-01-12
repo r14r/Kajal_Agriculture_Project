@@ -119,7 +119,7 @@
 
 ```html
 <!-- Current: -->
-<img src="https://via.placeholder.com/600x400?text=Organic+Farm" 
+<img src="https://placehold.co/600x400?text=Organic+Farm" 
      alt="Organic Farming">
 
 <!-- Replace with your actual image: -->

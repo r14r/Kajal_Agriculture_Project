@@ -162,6 +162,12 @@ body.marathi [data-mr] {
     display: block;
 }
 
+.nav-link.selected {
+    border-radius: 0%;
+    border-bottom: 2px solid #ffd700;
+}
+
+
 .nav-link::before {
     content: '';
     position: absolute;
@@ -176,7 +182,7 @@ body.marathi [data-mr] {
 
 .nav-link:hover {
     background-color: rgba(255, 255, 255, 0.15);
-    transform: translateY(-2px);
+    
 }
 
 .nav-link:hover::before {
@@ -1028,6 +1034,7 @@ body.marathi [data-mr] {
    PRINT STYLES
    =========================== */
 @media print {
+
     .navbar,
     .back-to-top,
     .hamburger {
