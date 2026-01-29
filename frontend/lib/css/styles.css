@@ -322,9 +322,17 @@ body.marathi [data-mr] {
 }
 
 .hero-image img {
-    width: 100%;
-    border-radius: 10px;
-    box-shadow: var(--shadow);
+     width: 100%;
+   /* border-radius: 10px;
+    box-shadow: var(--shadow); */
+
+        filter: brightness(0.95);
+        border-radius: 15px;
+}
+
+.hero-image img:hover {
+    transform: scale(1.03);
+    transition: 0.3s;
 }
 
 /* ===========================
