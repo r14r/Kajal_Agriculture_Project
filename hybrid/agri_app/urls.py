@@ -4,6 +4,7 @@ from . import views
 urlpatterns = [
     # Frontend pages
     path('', views.frontend_index, name='frontend_index'),
+    path('index.html', views.frontend_index, name='frontend_index_html'),
     path('farmers.html', views.frontend_farmers, name='frontend_farmers'),
     path('contact.html', views.frontend_contact, name='frontend_contact'),
     
