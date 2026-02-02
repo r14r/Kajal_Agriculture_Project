@@ -2,7 +2,7 @@
 settings_dev.py - Development-specific settings for Django
 """
 
-from agri_project.settings import *
+from Agriculture.settings import *
 
 # Development-specific settings
 DEBUG = True

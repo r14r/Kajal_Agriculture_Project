@@ -1,5 +1,5 @@
 """
-Django settings for agri_project project.
+Django settings for Agriculture project.
 """
 
 import os
@@ -39,7 +39,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'agri_project.urls'
+ROOT_URLCONF = 'Agriculture.urls'
 
 TEMPLATES = [
     {
@@ -60,7 +60,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'agri_project.wsgi.application'
+WSGI_APPLICATION = 'Agriculture.wsgi.application'
 
 # Database
 DATABASES = {

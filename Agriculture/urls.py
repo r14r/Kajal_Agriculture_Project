@@ -1,5 +1,5 @@
 """
-URL configuration for agri_project project.
+URL configuration for Agriculture project.
 """
 from django.contrib import admin
 from django.urls import path, include

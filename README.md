@@ -14,7 +14,7 @@ hybrid/
 │   ├── models.py           # Database models
 │   ├── views.py            # View functions
 │   └── urls.py             # URL routing
-├── agri_project/           # Django project settings
+├── Agriculture/           # Django project settings
 │   ├── settings.py         # Main settings
 │   ├── urls.py             # Root URL configuration
 │   └── wsgi.py             # WSGI configuration

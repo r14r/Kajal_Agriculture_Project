@@ -3,7 +3,7 @@ settings_prod.py - Production-specific settings for Django
 """
 
 import os
-from agri_project.settings import *
+from Agriculture.settings import *
 
 # Production settings
 DEBUG = False
