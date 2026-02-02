@@ -178,7 +178,8 @@
     <script>
         // Farmers page standalone script - no dependencies on script.js
         let allFarmers = [];
-        const apiUrl = '/api/farmers';
+        const loc = window.location.origin;
+        const apiUrl = `${loc}//api/farmers`;
 
         // Load farmers on page load
         document.addEventListener('DOMContentLoaded', () => {
