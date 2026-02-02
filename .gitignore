@@ -1,3 +1,8 @@
+Workspace.code-workspace
+.envrc
+.set_env.sh 
+
+
 # Django generated files
 staticfiles/
 __pycache__/
