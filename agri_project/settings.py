@@ -44,7 +44,10 @@ ROOT_URLCONF = 'agri_project.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'agri_app/templates')],
+        'DIRS': [
+            os.path.join(BASE_DIR, 'agri_app/templates'),
+            os.path.join(BASE_DIR, 'templates'),
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -63,9 +66,12 @@ WSGI_APPLICATION = 'agri_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(os.path.dirname(BASE_DIR), 'agri_data.db'),
+        'NAME': os.path.join(BASE_DIR, 'agri_data.db'),
     }
 }
+print("BASE_DIR", BASE_DIR)
+print("DATABASES", DATABASES)
+
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [

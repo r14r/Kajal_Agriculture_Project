@@ -1,4 +1,4 @@
-export ENV_NAME=Default
+export ENV_NAME=Python
 export ENV_HOME=$PWD
 export ENV_VSCODE=Agriculture_Project
 

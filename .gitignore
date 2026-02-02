@@ -1,4 +1,18 @@
-.venv
-venv
+# Django generated files
+staticfiles/
+__pycache__/
+*.pyc
+*.pyo
+*.db
+*.sqlite3
 
-**/pycache__
+# Virtual environment
+venv/
+.venv/
+
+# IDE
+.vscode/
+.idea/
+
+# Environment variables
+.env

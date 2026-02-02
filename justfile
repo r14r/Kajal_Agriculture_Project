@@ -1,7 +1,14 @@
+MANAGE := "python manage.py"
+
 default:
-    @just -l
+	@just -l
 
+install:
+	uv pip install -r requirements.txt 
 
-run-backend:
-    cd backend && python app.py
-    
+prepare:
+	{{MANAGE}} migrate
+
+run:
+	{{MANAGE}} runserver
+
