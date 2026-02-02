@@ -7,14 +7,14 @@ import django.db.models.deletion
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('agri_app', '0002_alter_farmer_id'),
+        ('App', '0002_alter_farmer_id'),
     ]
 
     operations = [
         migrations.AddField(
             model_name='soilrecord',
             name='farmers_id',
-            field=models.ForeignKey(db_column='farmers_id', default=0, on_delete=django.db.models.deletion.CASCADE, related_name='soil_records_by_farmers_id', to='agri_app.farmer'),
+            field=models.ForeignKey(db_column='farmers_id', default=0, on_delete=django.db.models.deletion.CASCADE, related_name='soil_records_by_farmers_id', to='App.farmer'),
             preserve_default=False,
         ),
         migrations.AlterField(

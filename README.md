@@ -6,7 +6,7 @@ This is a hybrid Django application that combines the backend API with the front
 
 ```
 hybrid/
-├── agri_app/               # Django app
+├── App/               # Django app
 │   ├── templates/          # Django templates
 │   │   ├── admin_*.html   # Admin interface templates
 │   │   └── frontend/      # Frontend HTML pages

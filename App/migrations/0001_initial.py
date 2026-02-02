@@ -36,7 +36,7 @@ class Migration(migrations.Migration):
                 ('date_recorded', models.CharField(blank=True, max_length=255, null=True)),
                 ('recorded_at', models.DateTimeField(auto_now_add=True)),
                 ('notes', models.TextField(blank=True, null=True)),
-                ('farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='water_records', to='agri_app.farmer')),
+                ('farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='water_records', to='App.farmer')),
             ],
             options={
                 'ordering': ['-recorded_at'],
@@ -55,7 +55,7 @@ class Migration(migrations.Migration):
                 ('date_recorded', models.CharField(blank=True, max_length=255, null=True)),
                 ('recorded_at', models.DateTimeField(auto_now_add=True)),
                 ('notes', models.TextField(blank=True, null=True)),
-                ('farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='soil_records', to='agri_app.farmer')),
+                ('farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='soil_records', to='App.farmer')),
             ],
             options={
                 'ordering': ['-recorded_at'],
@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('date_recorded', models.CharField(blank=True, max_length=255, null=True)),
                 ('planted_on', models.DateTimeField(auto_now_add=True)),
                 ('notes', models.TextField(blank=True, null=True)),
-                ('farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='crops', to='agri_app.farmer')),
+                ('farmer', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='crops', to='App.farmer')),
             ],
             options={
                 'ordering': ['-planted_on'],

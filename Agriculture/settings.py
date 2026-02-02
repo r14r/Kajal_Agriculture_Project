@@ -25,7 +25,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
-    'agri_app',
+    'App',
 ]
 
 MIDDLEWARE = [
@@ -45,7 +45,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            os.path.join(BASE_DIR, 'agri_app/templates'),
+            os.path.join(BASE_DIR, 'App/templates'),
             os.path.join(BASE_DIR, 'templates'),
         ],
         'APP_DIRS': True,
@@ -69,9 +69,6 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'agri_data.db'),
     }
 }
-print("BASE_DIR", BASE_DIR)
-print("DATABASES", DATABASES)
-
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
